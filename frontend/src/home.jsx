@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 const DUMMY_POLLS = [
   {
@@ -41,8 +40,8 @@ export default function PollList() {
   */
 
 
-  if (isLoading) return <div>Loading polls...</div>;
-  if (error) return <div>Error: {error}</div>;
+  // if (isLoading) return <div>Loading polls...</div>;
+  // if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="poll-list-container">
