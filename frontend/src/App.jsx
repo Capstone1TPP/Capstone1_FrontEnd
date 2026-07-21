@@ -1,22 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-import PollForm from './components/PollForm'
-
-function App() {
-  const [count, setCount] = useState(0)
-  const [polls, setPolls] = useState([])
-  return (
-    <>
-     <PollForm/>
-    </>
-  )
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PollList from './home';
 import './App.css';
+import PollForm from './components/PollForm';
 
 function App() {
   return (
@@ -25,7 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PollList />} />
           <Route path="/polls/:id" element={<div>Poll Details & Voting Page</div>} />
-          <Route path="/create" element={<div>Create Poll Form</div>} />
+          <Route path="/create" element={<PollForm />} />
         </Routes>
       </main>
     </BrowserRouter>
