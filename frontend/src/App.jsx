@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';import './App.cs
 import PollForm from './components/PollForm';
 import PollList from './home'
 import NavBar from './components/NavBar';
+import PollDetail from './pages/PollDetails';
 
 function App() {
   return (
@@ -9,8 +10,9 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<PollList />} />
-          <Route path="/polls/:id" element={<div>Poll Details & Voting Page</div>} />
           <Route path="/create" element={<PollForm />} />
+          <Route path="/polls/:id" element={<PollDetail />} />
+          <Route path="/polls/:id/results" element={<div>Hello Results</div>}/>
         </Routes>
     </BrowserRouter>
   );

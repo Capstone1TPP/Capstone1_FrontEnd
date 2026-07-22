@@ -4,7 +4,7 @@ function NavBar() {
         <ul>
             <Link to={'/'}>Home</Link>
             <Link to={'/create'}>Create Polls</Link>
-            <Link to={'/polling'}>Poll Page</Link>
+            <Link to={'/polls/:id'}>Poll Page</Link>
             <Link to={'/results'}>Results</Link>
         </ul>
     )

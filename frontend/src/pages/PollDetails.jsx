@@ -9,44 +9,21 @@ export default function PollDetail() {
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
-  const poll = {
-  id: 1,
-  title: "Favorite Tech Stack",
-  description: "Which stack do you prefer for full-stack web development?",
-  options: [
-    {
-      id: 1,
-      text: "PERN Stack (Postgres, Express, React, Node)"
-    },
-    {
-      id: 2,
-      text: "MERN Stack (MongoDB, Express, React, Node)"
-    },
-    {
-      id: 3,
-      text: "Next.js + Supabase"
-    },
-    {
-      id: 4,
-      text: "Django + React"
+  useEffect(() => {
+    async function fetchPoll() {
+      try {
+        const response = await fetch(`http://localhost:4000/polls/${id}`);
+        const data = await response.json();
+        setPoll(data);
+        console.log(data)
+      } catch (err) {
+        console.error('Error fetching poll:', err);
+      } finally {
+        setLoading(false);
+      }
     }
-  ]
-}
-
-  // useEffect(() => {
-  //   async function fetchPoll() {
-  //     try {
-  //       const response = await fetch(`http://localhost:4000/polls/${id}`);
-  //       const data = await response.json();
-  //       setPoll(data);
-  //     } catch (err) {
-  //       console.error('Error fetching poll:', err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  //   fetchPoll();
-  // }, [id]);
+    fetchPoll();
+  }, []);
 
 
   const handleVote = async (e) => {
@@ -87,12 +64,12 @@ export default function PollDetail() {
 
       <form onSubmit={handleVote}>
         <div className="options-list">
-          {poll.Options?.map((options) => (
-            <label key={options.id} style={{ display: 'block', margin: '10px 0' }}>
+          {poll.options?.map((option) => (
+            <label key={option.id} style={{ display: 'block', margin: '10px 0' }}>
               <input
                 type="radio"
                 name="poll-option"
-                value={options.id}
+                value={option.id}
                 onChange={(e) => setSelectedOptionId(e.target.value)}
               />
               {option.text}
