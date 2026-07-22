@@ -1,3 +1,4 @@
+/* Global styles  */
 * {
   box-sizing: border-box;
 }
@@ -7,6 +8,7 @@ body {
   background-color: #f4f4f4;
 }
 
+/* form styles */
 form {
   max-width: 500px;
   margin: 40px auto;
@@ -64,3 +66,29 @@ button {
 button:hover {
   background-color: #357abd;
 }
+
+/* Navbar styles */
+
+ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  margin: 0;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+ul a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+ul a:hover {
+  background-color: #f1f5f9;
+}
+

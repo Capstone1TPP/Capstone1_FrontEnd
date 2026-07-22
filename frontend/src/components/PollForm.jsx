@@ -1,26 +1,35 @@
 import { useState } from "react"
 
 function PollForm () {
-    const [option, setOptions] = useState({
+    const [polling, setPolling] = useState({
         pollName: '',
-        pollDescription: '',
-        optionOne: '',
-        optionTwo: '',
-        optionThree: '',
+        pollDescription: ''
     })
+    const [options, setOptions] = useState([])
+    const [text, setText] = useState('')
+
     function handleChange (e) {
-        setOptions((prevOptions) => {
+        setPolling((prevPolling) => {
             return {
-                ...prevOptions,
+                ...prevPolling,
                 [e.target.name]: e.target.value,
             }
         })
-
-        // fetch call post to sned back the poll data with options
-        console.log(option)
     }
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
+        
+        const response = await fetch('http://localhost:4000/polls', {
+            method: "POST",
+            body: JSON.stringify(polling.pollName, polling.pollDescription, options),
+            headers: { "Content-Type": "application/json" }
+        })
+        const data = await response.json()
+
         e.preventDefault()
+    }
+    function addOption() {
+        setOptions([...options, text])
+        setText('')
     }
     return (
         <div>
@@ -37,12 +46,22 @@ function PollForm () {
 
                 <h2>Poll Options</h2>
                 <div>
-                    <input type="text" name="optionOne" placeholder="Add Option" className="option" onChange={handleChange}/> 
-                    <input type="text" name="optionTwo" placeholder="Add Option" className="option" onChange={handleChange}/> 
-                    <input type="text" name="optionThree" placeholder="Add Option" className="option" onChange={handleChange}/> 
+                    <input 
+                        placeholder="Type your option" 
+                        value={text} 
+                        onChange={(e) => setText(e.target.value)}
+                    />
+                    <button onClick={addOption}>Add Option</button>
+                    
                 </div>
                 <button type="submit">submit form</button>
             </form>
+            <div>
+                <p>Options List</p>
+                <ul>
+                    {options.map((option) => <li>{option}</li>)}
+                </ul>
+            </div>
         </div>
     )
 }
