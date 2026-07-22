@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router"
 
 function PollForm () {
     const [polling, setPolling] = useState({
@@ -7,6 +8,7 @@ function PollForm () {
     })
     const [options, setOptions] = useState([])
     const [text, setText] = useState('')
+    const nav = useNavigate()
 
     function handleChange (e) {
         setPolling((prevPolling) => {
@@ -17,17 +19,18 @@ function PollForm () {
         })
     }
     async function handleSubmit(e) {
-        
+        e.preventDefault()
         const response = await fetch('http://localhost:4000/polls', {
             method: "POST",
-            body: JSON.stringify(polling.pollName, polling.pollDescription, options),
+            body: JSON.stringify({title: polling.pollName, description: polling.pollDescription, options}),
             headers: { "Content-Type": "application/json" }
         })
         const data = await response.json()
 
-        e.preventDefault()
+        nav('/')
     }
-    function addOption() {
+    function addOption(e) {
+        e.preventDefault()
         setOptions([...options, text])
         setText('')
     }
