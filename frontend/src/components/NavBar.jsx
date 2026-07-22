@@ -6,7 +6,6 @@ function NavBar() {
             <Link to={'/create'}>Create Polls</Link>
             <Link to={'/polling'}>Poll Page</Link>
             <Link to={'/results'}>Results</Link>
-
         </ul>
     )
 }
