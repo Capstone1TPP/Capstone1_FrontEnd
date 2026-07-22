@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PollList from './home';
 import './App.css';
