@@ -1,31 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-const DUMMY_POLLS = [
-  {
-    id: 1,
-    title: 'Favorite Tech Stack',
-    description: 'Which stack do you prefer for full-stack web development?',
-  },
-  {
-    id: 2,
-    title: 'Lunch Preferences',
-    description: 'What should the team order for lunch on Friday?',
-  },
-];
 
 export default function PollList() {
   const [polls, setPolls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  /*useEffect(() => {
+  useEffect(() => {
     async function fetchPolls() {
       try {
         const response = await fetch('http://localhost:4000/polls'); 
         if (!response.ok) throw new Error('Failed to fetch polls');
         
         const data = await response.json();
+        console.log(data)
         setPolls(data);
       } catch (err) {
         console.error("Error fetching polls:", err);
@@ -37,7 +26,7 @@ export default function PollList() {
 
     fetchPolls();
   }, []); 
-  */
+
 
 
   // if (isLoading) return <div>Loading polls...</div>;
@@ -46,7 +35,8 @@ export default function PollList() {
   return (
     <div className="poll-list-container">
       <h2>Active Polls</h2>
-      {polls.length === 0 ? (
+      <div className='polls'>
+        {polls.length === 0 ? (
         <p>No polls available yet.</p>
       ) : (
         polls.map((poll) => (
@@ -57,6 +47,8 @@ export default function PollList() {
           </div>
         ))
       )}
+      </div>
+      
     </div>
   );
 }
