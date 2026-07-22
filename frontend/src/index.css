@@ -92,3 +92,50 @@ ul a:hover {
   background-color: #f1f5f9;
 }
 
+/* Home page styles */
+
+.poll-list-container h2{
+  text-align: center;
+}
+
+.polls {
+  display: flex;
+}
+
+/* Home page styles */
+
+.poll-list-container h2 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.polls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.poll-card {
+  background: white;
+  width: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.poll-card h3 {
+  margin-top: 0;
+}
+
+.poll-card a {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #4a90e2;
+}
+
+.poll-card a:hover {
+  text-decoration: underline;
+}
