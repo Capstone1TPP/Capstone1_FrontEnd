@@ -28,7 +28,6 @@ export default function PollList() {
   }, []); 
 
 
-
   // if (isLoading) return <div>Loading polls...</div>;
   // if (error) return <div>Error: {error}</div>;
 
