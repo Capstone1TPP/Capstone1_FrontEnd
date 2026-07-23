@@ -1,34 +1,42 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 
 function PollResults() {
-    const { id } = useParams()
+    const { id } = useParams() 
+    const [poll, setPoll] = useState({})
+    const [totalvotes, setTotalVotes] = useState(0)
 
-        // when this component is loaded i would like to do the following
-        // 1. get the entire poll infomartion so i can extract the poll name and descriptions
-        // 2. get the poll options so i can display them through the labels
-        // 3. get the poll votes so i can get the total amount of votes 
+    useEffect(() => {
+        const getPollResult = async () => {
+            const response = await fetch(`http://localhost:4000/polls/${id}`)
+            const data = await response.json()
+            setPoll(data) 
+        }
 
+        getPollResult()
+    }, [])
+
+    const totalVotes = !!poll.options && poll.options.reduce((acc, curr) => {
+        return acc + curr.Votes.length
+    }, 0)   
+
+    console.log(totalVotes) 
     return (
         <div className="poll-result-container">
-            <h3>Poll Name</h3>
-            <p>Poll Description Lorem ipsum dolor sit amet.</p>
-
+            <h1>Poll Result</h1>
+            <h3>{poll.title}</h3>
+            <p>{poll.description}</p>
             <div className="poll-stats">
-                <div className="poll-option">
-                    <label htmlFor="">Option A</label>
-                    <progress value={45} max={100}></progress>
-                </div>
-                
-                <div className="poll-option">
-                    <label htmlFor="">Option A</label>
-                    <progress value={45} max={100}></progress>
-                </div>
-
-                <div className="poll-option">
-                    <label htmlFor="">Option A</label>
-                    <progress value={45} max={100}></progress>
-                </div>
+                {!!poll.options && poll.options.map((option) => {
+                    const optionVotePercent = (option.Votes.length / totalVotes) * 100
+                    return (
+                        <div className="poll-option" key={option.id}>
+                            <label htmlFor="">{option.text}</label>
+                            <progress value={option.Votes.length} max={totalVotes}></progress>
+                            <span>{Math.round(optionVotePercent)} %</span>
+                        </div>
+                    )
+                })}
             </div>
         </div>
     )
