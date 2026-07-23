@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';import './App.cs
 import PollForm from './components/PollForm';
 import PollList from './home'
 import NavBar from './components/NavBar';
-import PollDetail from './pages/PollDetails';
+import PollVote from './pages/PollVote';
+import PollResults from './pages/PollResults';
 
 function App() {
   return (
@@ -11,8 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<PollList />} />
           <Route path="/create" element={<PollForm />} />
-          <Route path="/polls/:id" element={<PollDetail />} />
-          <Route path="/polls/:id/results" element={<div>Hello Results</div>}/>
+          <Route path="/polls/:id" element={<PollVote />} />
+          <Route path="/polls/:id/results" element={<PollResults />}/>
         </Routes>
     </BrowserRouter>
   );
