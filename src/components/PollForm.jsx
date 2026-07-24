@@ -51,6 +51,22 @@ function PollForm () {
         }
 
         // check if option.text is empty, if it is remove it from the state
+
+
+
+        setOptions((prevOptions)=>{
+            return prevOptions.filter((option)=> {
+                if(Object.keys(option).length !== 0){
+                    return option
+                }
+            })
+        })
+
+        // const reviewedOptions = options.filter((option) => option.text.trim() !=="")
+        // console.log(reviewedOptions)
+        // setOptions(reviewedOptions)
+        console.log(options)
+
         const response = await fetch('http://localhost:4000/polls', {
             method: "POST",
             body: JSON.stringify({title: polling.pollName, description: polling.pollDescription, options}),
