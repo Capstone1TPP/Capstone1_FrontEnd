@@ -85,15 +85,11 @@ function PollForm() {
   }
 
   async function handleDeleteOption(e, index) {
+    console.log("form index:", index);
     e.preventDefault();
-    console.log("option", options);
-    console.log("index:", index);
-
     const updatedOption = options.filter((option, i) => {
-      console.log("i: ", i);
       return i !== index;
     });
-
     setOptions([...updatedOption]);
   }
 
