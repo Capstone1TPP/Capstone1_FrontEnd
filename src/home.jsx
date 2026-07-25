@@ -45,7 +45,7 @@ export default function PollList() {
 
   return (
     <div className="poll-list-container">
-      <h2>Active Polls</h2>
+      <h2>Active Polls: {polls.length}</h2>
       <div className="polls">
         {polls.length === 0 ? (
           <p>No polls available yet.</p>
@@ -53,6 +53,7 @@ export default function PollList() {
           polls.map((poll) => (
             <div key={poll.id} className="poll-card">
               <h3>{poll.title}</h3>
+              <h4>{console.log(poll)}</h4>
               <p>{poll.description}</p>
               <div style={{ display: "flex" }}>
                 <button onClick={() => navigate(`/polls/${poll.id}`)}>
