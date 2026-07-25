@@ -54,24 +54,24 @@ function PollForm() {
 
     // check if option.text is empty, if it is remove it from the state
 
-    setOptions((prevOptions) => {
-      return prevOptions.filter((option) => {
-        Object.keys(option).length !== 0;
-      });
-      console.log(">>>>>", options);
-    });
+    // setOptions((prevOptions) => {
+    //   return prevOptions.filter((option) => {
+    //     Object.keys(option).length !== 0;
+    //   });
+    //   console.log(">>>>>", options);
+    // });
 
-    // const reviewedOptions = options.filter((option) => option.text.trim() !=="")
+    const reviewedOptions = options.filter((option) => option.text.trim() !=="")
     // console.log(reviewedOptions)
-    // setOptions(reviewedOptions)
-    console.log(options);
+    setOptions(reviewedOptions)
+    // console.log(options);
 
     const response = await fetch("http://localhost:4000/polls", {
       method: "POST",
       body: JSON.stringify({
         title: polling.pollName,
         description: polling.pollDescription,
-        options,
+        options: reviewedOptions,
       }),
       headers: { "Content-Type": "application/json" },
     });
@@ -81,7 +81,7 @@ function PollForm() {
   }
   function addOption(e) {
     e.preventDefault();
-    setOptions([...options, {}]);
+    setOptions([...options, {text: ""}]);
   }
 
   async function handleDeleteOption(e, index) {
@@ -117,7 +117,8 @@ function PollForm() {
           {options.map((option, index) => {
             return (
               <div key={index} style={{ marginTop: 10 }}>
-                <input
+                <input 
+                  value={option.text}
                   placeholder="Type your option"
                   id={index}
                   onChange={(e) => handleOption(e)}
