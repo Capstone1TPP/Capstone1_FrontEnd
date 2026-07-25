@@ -24,6 +24,7 @@ function PollResults() {
     return (
         <div className="poll-result-container">
             <h1>Poll Result</h1>
+            <h3>Total Votes: {totalVotes}</h3>
             <h3>{poll.title}</h3>
             <p>{poll.description}</p>
             <div className="poll-stats">
