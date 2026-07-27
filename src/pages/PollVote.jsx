@@ -9,14 +9,13 @@ export default function PollDetail() {
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
-
   useEffect(() => {
     async function fetchPoll() {
       try {
         const response = await fetch(`http://localhost:4000/polls/${id}`);
         const data = await response.json();
         setPoll(data);
-        console.log(data)
+        console.log(data);
       } catch (err) {
         console.error('Error fetching poll:', err);
       } finally {
@@ -26,7 +25,17 @@ export default function PollDetail() {
     fetchPoll();
   }, [id]);
 
-  const currentUrl = window.location.href; 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
 
   const handleVote = async (e) => {
     e.preventDefault();
@@ -34,21 +43,6 @@ export default function PollDetail() {
       alert('Please select an option first!');
       return;
     }
-
-  const handleCopy = async () => {
-  try {
-    await navigator.clipboard.writeText(window.location.href);
-
-    setCopied(true);
-
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-
-  } catch (err) {
-    console.error(err);
-  }
-};
 
     try {
       const response = await fetch(`http://localhost:4000/polls/${id}/vote`, {
@@ -74,10 +68,10 @@ export default function PollDetail() {
     <div className="poll-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Link to="/">&larr; Back to Home</Link>
-         <button type="button" onClick={handleCopy}>
+        <button type="button" onClick={handleCopy}>
           {copied ? 'Copied!' : 'Share Poll'}
         </button>
-    </div>
+      </div>
 
       <h2>{poll.title}</h2>
       <p>{poll.description}</p>
@@ -90,6 +84,7 @@ export default function PollDetail() {
                 type="radio"
                 name="poll-option"
                 value={option.id}
+                checked={selectedOptionId === String(option.id)}
                 onChange={(e) => setSelectedOptionId(e.target.value)}
               />
               {option.text}
